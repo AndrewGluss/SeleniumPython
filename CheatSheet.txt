@@ -1,0 +1,63 @@
+Установка python на Linux
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install python3.10
+
+Добавляем алиас в файл
+nano ~/.bashrc
+alias python3=python3.10
+source ~/.bashrc
+
+Создаем виртуальное окружение
+python3 -m pip install pip
+sudo apt-get install -y python3.10-venv
+mkdir environments
+cd environments
+python3 -m venv selenium_env
+
+Активация окружения
+source selenium_env/bin/activate
+
+Деактивация
+(selenuim_env) ~/: deactivate
+
+Установка Chromedriver на Linux
+wget https://chromedriver.storage.googleapis.com/102.0.5005.61/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+
+sudo mv chromedriver /usr/local/bin/chromedriver
+sudo chown root:root /usr/local/bin/chromedriver
+sudo chmod +x /usr/local/bin/chromedriver
+
+Запуск скрипта без использования Selenium
+python ~/path name.py
+
+Запуск с использованием unittest
+(selenium_env) python unittest ~/path name.py
+
+Запуск с использованием pytest
+(selenium_env) pytest -v(--verbose) ~/path name.py
+-v подробный отчет о тестах
+
+pytest -s test_fixture1.py
+-s печатает в консоли текст из print() внутри теста
+
+pytest -s -v -m smoke test_fixture.py
+Подробный запуск теста с выводом print(), с маркировкой @pytest.mark.smoke
+Необходим файл pytest.ini
+[pytest]
+markers =
+    smoke: marker for smoke tests
+    regression: marker for regression tests
+    win10
+
+pytest -s -v -m "smoke and win10" test_fixture.py
+
+@pytest.mark.xfail
+Помечаем тест как падающий, но проходит. XFAIL
+Когда баг починят, тест будет помечен как неожиданно проходящий XPASS
+
+@pytest.mark.xfail(reason="fixing this bug right now")
+pytest -rx -v test_fixture.py
+Выводим текст reason при падении теста
+
+
