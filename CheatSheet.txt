@@ -60,4 +60,15 @@ pytest -s -v -m "smoke and win10" test_fixture.py
 pytest -rx -v test_fixture.py
 Выводим текст reason при падении теста
 
+pip install pytest-rerunfailures
+установка плагина по перезапуску автотестов, т.к. они могу неожиданно падать
+
+--reruns n
+передаем параметр, где n - количество перезапусков
+
+--tb=line
+сократить лог с результатами теста
+
+pytest -v --tb=line --reruns 1 --browser_name=chrome test_rerun.py
+запуск теста с подробным отчетом, сокращенны выводом логов и с одни количеством перезапуска упавшего теста
 
